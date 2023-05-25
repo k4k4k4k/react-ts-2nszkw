@@ -4,27 +4,31 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function App() {
   const [time, setTime] = useState(0);
-  const [isActive, setIsActive] = useState(false)
+  const [isActive, setIsActive] = useState(false);
   const mins = Math.floor(time / 60);
   const secs = time % 60;
-  const int = useRef(null)
-  
+  const int = useRef(null);
+
   const startTimer = () => {
-    setIsActive(true)
+    setIsActive(true);
   };
   const stopTimer = () => {
-    setIsActive(false)
+    setIsActive(false);
   };
   const resetTimer = () => {
-    setTime(0)
+    setTime(0);
+    setIsActive(false);
+    // console.log(int.current)
   };
 
-  useEffect(()=>{
-    if (isActive)int.current = setInterval(()=>setTime(prev=>prev+1), 1000)
+  useEffect(() => {
+    if (isActive)
+      int.current = setInterval(() => setTime((prev) => prev + 1), 1000);
     else {
-      clearInterval(int.current)
+      clearInterval(int.current);
     }
-    return () => clearInterval(int.current)}, [isActive])
+    return () => clearInterval(int.current);
+  }, [isActive]);
 
   return (
     <div className="container">
